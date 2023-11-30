@@ -1,13 +1,10 @@
 from os import system
 
-
 class Person():
     def __init__(self ,  first_name , last_name):
         self.first_name = first_name
         self.last_name = last_name
-        
-        
-        
+               
 class Customer(Person):
     
     def __init__(self, first_name, last_name, account_number):
@@ -15,13 +12,13 @@ class Customer(Person):
         self.account_number = account_number
         self.balance = 0
         self.check_balance = False
-     
-         
+              
     def client_data(self):
+        system('cls')
         print("*" * 50)
-        print("Welcome to Bank Python Zero to Hero Siiiiuuuuuu !")
+        print(f"\t\tHi {self.first_name}!")
         print("*" * 50)
-        print("\t\tCustomer Information")
+        print("\t\tAccount Information")
         print("*" * 50)
         print(f"Customer Name: {self.first_name} {self.last_name}\nAccount Number: {self.account_number}") 
         if self.check_balance == True:
@@ -31,9 +28,8 @@ class Customer(Person):
         print("*" * 50)  
         print("\t\tThank you !!")
         print("*" * 50)
-        
-    
-        
+
+
     def customer_deposit(self , deposit_amount):
          self.balance += deposit_amount
          return self.balance
@@ -49,18 +45,142 @@ class Customer(Person):
              self.check_balance = False
              return self.balance
         
-                           
-new_customer = Customer("Angel" , "Rivera" , "122345522" )               
-new_customer.customer_deposit(50)
-new_customer.customer_deposit(50)
-new_customer.customer_withdraw(10)
-new_customer.customer_withdraw(100)
-new_customer.customer_deposit(50)
-new_customer.customer_withdraw(100)
-new_customer.customer_withdraw(50)
+
+class Bank_Functions(Customer):
+    def __init__(self, first_name, last_name, account_number):
+        super().__init__(first_name, last_name, account_number)
+        self.program_started = False
+        
+
+    def evaluate_user_option(self , user_choice):
+        self.user_choice = user_choice
+        if  not self.user_choice.isdigit():
+            return False
+        elif int(self.user_choice) > 4 :
+            return False
+        elif int(self.user_choice) <= 0:
+            return False
+        else: 
+            return True
+
+  ###############################################################################      
+    def evaluate_user_continue_choice(self , user_choice):
+        self.user_choice = user_choice.upper()
+        
+        while self.user_choice == 'M' or self.user_choice == 'C': 
+            print("Must finish code here ")
+
+ ################################################################################           
+        print("Hello world")   
+        
+    def wrong_user_option(self , user_validated):
+        self.user_validated = user_validated
+        while self.user_validated == False:
+               system('cls')
+               print("*" * 50)
+               print(f"\t\tWrong Input {self.first_name} !")
+               print("*" * 50)
+               print("Menu:\n[1]--Check Balance\n[2]--Make a Deposit\n[3]--Withdraw\n[4]--Exit")
+               print("*" * 50)
+               print("\t\tWarning")
+               print("*" * 50)
+               print("-" * 50)
+               self.user_choice = input("Please select an option: ")
+               print("-" * 50)
+               self.user_validated = self.evaluate_user_option(self.user_choice)
+        
+        return [self.user_validated , self.user_choice]
+    
+    def end_program(self):
+         system('cls')
+         print("*" * 50)
+         print(f"\tGood Bye {self.first_name} !")
+         print("*" * 50)
+         print("\tThank you and have a good day !")
+         print("*" * 50)
+         print("\tBank Hero to Zero siiuuu !!!")
+         print("*" * 50)
+         print("-" * 50)
+
+    def good_user_option(self , user_choice):
+        self.user_choice = user_choice
+        self.program_started =  True
+       
+        if self.user_choice == '1':
+            self.client_data()
+       
+        elif self.user_choice == '2':
+            system('cls')
+            print("*" * 50)
+            print(f"\t Hi {self.first_name} !")
+            print("*" * 50)
+            print(f"Your current balance is: {self.balance}")
+            print("*" * 50)
+            
+            self.user_deposit = int(input("Please enter amount: "))
+            
+            print("*" * 50)
+            self.customer_deposit(self.user_deposit)
+            self.client_data()
+       
+        elif self.user_choice == '3':
+            system('cls')
+            self.user_withdraw = int(input("Please enter amount to withdraw: "))
+            self.customer_withdraw(self.user_withdraw)
+            self.client_data()
+
+        elif self.user_choice == '4':
+            self.end_program()
+           
+
+    def bank_menu(self):
+          
+          system('cls')
+          print("*" * 50)
+          print(f"Welcome to Bank Python Zero to Hero {self.first_name} {self.last_name} !")
+          print("*" * 50)
+          print("Menu:\n[1]--Check Balance\n[2]--Make a Deposit\n[3]--Withdraw\n[4]--Exit")
+          print("*" * 50)
+          print("\t\tThank you")
+          print("*" * 50)
+          print("-" * 50)
+          self.user_choice = input("Please select an option: ")
+          print("-" * 50)
+          self.validation_response = self.evaluate_user_option(self.user_choice)   
+          if self.validation_response == False:
+              self.validation_response_again = self.wrong_user_option(self.validation_response)
+              if self.validation_response_again[0] == True:
+                  self.good_user_option(self.validation_response_again[1])
+              else:
+                  self.wrong_user_option(self.validation_response_again)            
+          else:
+              self.good_user_option(self.user_choice)   
+
+          if self.program_started == True:
+           self.continue_program_choice = input("Select 'M' for main Menu or 'C' for exit the program: ")
+           self.check_continue = self.evaluate_user_continue_choice(self.continue_program_choice)
+          else:
+              pass    
 
 
-system('cls')
-new_customer.client_data()
-         
+def create_customer():
+     system('cls')
+     print("*" * 50)
+     print("Welcome to Bank Python Zero to Hero Siiuuuu !")
+     print("*" * 50)
+     first_name = input("Please provide your first name: ")
+     last_name = input("Please provide your last name: ")
+     bank_account = input("Please provide your bank account: ") 
+     print("*" * 50)
+     print("\t\tThank you")
+     print("*" * 50)
+     bank_interaction = Bank_Functions(first_name , last_name , bank_account)
+     bank_interaction.bank_menu()
+
+create_customer()    
+
+     
+
+
+
             
