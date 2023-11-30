@@ -1,0 +1,66 @@
+from os import system
+
+
+class Person():
+    def __init__(self ,  first_name , last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+        
+        
+        
+class Customer(Person):
+    
+    def __init__(self, first_name, last_name, account_number):
+        super().__init__(first_name, last_name)
+        self.account_number = account_number
+        self.balance = 0
+        self.check_balance = False
+     
+         
+    def client_data(self):
+        print("*" * 50)
+        print("Welcome to Bank Python Zero to Hero Siiiiuuuuuu !")
+        print("*" * 50)
+        print("\t\tCustomer Information")
+        print("*" * 50)
+        print(f"Customer Name: {self.first_name} {self.last_name}\nAccount Number: {self.account_number}") 
+        if self.check_balance == True:
+            print(f"Not enough Balance , Current Balance is: {self.balance}")
+        else:
+            print(f"Balance: {self.balance}")
+        print("*" * 50)  
+        print("\t\tThank you !!")
+        print("*" * 50)
+        
+    
+        
+    def customer_deposit(self , deposit_amount):
+         self.balance += deposit_amount
+         return self.balance
+        
+         
+    def customer_withdraw(self , withdraw_amount):
+        self.amount = withdraw_amount
+        if self.amount > self.balance:
+              self.check_balance = True
+              return self.balance
+        elif self.amount <= self.balance :
+             self.balance = self.balance - self.amount
+             self.check_balance = False
+             return self.balance
+        
+                           
+new_customer = Customer("Angel" , "Rivera" , "122345522" )               
+new_customer.customer_deposit(50)
+new_customer.customer_deposit(50)
+new_customer.customer_withdraw(10)
+new_customer.customer_withdraw(100)
+new_customer.customer_deposit(50)
+new_customer.customer_withdraw(100)
+new_customer.customer_withdraw(50)
+
+
+system('cls')
+new_customer.client_data()
+         
+            
